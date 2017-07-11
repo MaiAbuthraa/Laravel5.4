@@ -1,32 +1,30 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\User;
+use App\Model\User;
 use Illuminate\Http\Request;
-//use App\Transformers\UserTransformer;
-
+use App\Acme\Transformers\UserTransformer as Transformer;
+use App\Acme\Forms\UserForm as Form;
 
 class UserController extends Controller
 {
   /**
-  * @var Manager
-  */
-  //private $fractal;
-
-  /**
   * @var UserTransformer
   */
-  //private $userTransformer;
-  /*function __construct(Manager $fractal, UserTransformer $userTransformer)
+  private $transformer;
+  private $form;
+  function __construct()
    {
-       $this->fractal = $fractal;
-       $this->userTransformer = $userTransformer;
+      //Transformer
+       $this->transformer = new Transformer();
+       //Form
+       $this->form = new Form();
    }
-   */
+
    public function index(User $users)
    {
-       return [];
-       $users = [];//$users::all(); // Get users from DB
+       $users = $users::all(); // Get users from DB
+       return $this->transformer->collection($users->all());
        //return fractal()->collection($users)->transformWith(new UserTransformer)->toArray();
   }
 }

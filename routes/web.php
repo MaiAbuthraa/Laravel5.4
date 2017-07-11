@@ -11,8 +11,8 @@
 |
 */
 
-Route::get('/home', function () {
+Route::get('/', function () {
     return view('welcome');
-    
+
 });
-Route::get('api/v1/users','UserController@index');
+Route::get('users','UserController@index');
